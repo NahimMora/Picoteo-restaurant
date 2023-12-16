@@ -6,8 +6,7 @@ const data =
     id: 1,
     title: "Tu restaurante favorito, a solo un clic de distancia.",
     image: "/slide1.png",
-  }
-;
+  };
 
 const Slider = () => {
 
