@@ -1,16 +1,35 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+"use client";
+import { useCartStore } from "@/utils/store";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect } from "react";
 
 const CartIcon = () => {
-  return (
-    <Link href={'/cart'} className='flex items-center gap-4'>
-      <div className='relative w-8 h-8 md:w-5 md:h-5'>
-        <Image src={'/cart.png'} alt='CartIcon' fill/>
-      </div>
-      <span>Carrito (3)</span>
-    </Link>
-  )
-}
+  const { data: session, status } = useSession();
 
-export default CartIcon
+  const { totalItems } = useCartStore();
+
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+  }, []);
+
+  return (
+    <>
+      {!session?.user.isAdmin ? (
+        <Link href={"/cart"} className="flex items-center gap-4">
+          <div className="relative w-8 h-8 md:w-5 md:h-5">
+            <Image src={"/cart.png"} alt="CartIcon" fill />
+          </div>
+          <span>Carrito ({totalItems})</span>
+        </Link>
+      ) : (
+        <Link href={"/newProduct"}>
+          <span>Crear producto</span>
+        </Link>
+      )}
+    </>
+  );
+};
+
+export default CartIcon;
