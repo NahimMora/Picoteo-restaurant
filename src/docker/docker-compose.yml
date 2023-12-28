@@ -1,0 +1,11 @@
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1703
+      POSTGRES_DB: picoteo
+    ports:
+      - 5432:5432
