@@ -2,6 +2,8 @@
 
 import { ProductType } from "@/types/types";
 import { useCartStore } from "@/utils/store";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -10,12 +12,14 @@ const Price = ({ product }: { product: ProductType }) => {
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
 
-  const { addToCart } = useCartStore()
+  const { addToCart } = useCartStore();
+
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     if (product.options?.length && product.options[selected]) {
       const additionalPrice = product.options[selected].additionalPrice || 0;
-      setTotal(quantity * product.price + additionalPrice);
+      setTotal(quantity * product.price + Number(additionalPrice));
     }
   }, [quantity, selected, product]);
 
@@ -25,15 +29,17 @@ const Price = ({ product }: { product: ProductType }) => {
       title: product.title,
       img: product.img,
       price: total,
-      ...(product.options?.length && {optionTitle: product.options[selected].title}),
-      quantity: quantity
-  })
-  toast.success("Añadido al carrito!")
-  }
-  
+      ...(product.options?.length && {
+        optionTitle: product.options[selected].title,
+      }),
+      quantity: quantity,
+    });
+    toast.success("Añadido al carrito!");
+  };
+
   useEffect(() => {
-    useCartStore.persist.rehydrate()
-  },[])
+    useCartStore.persist.rehydrate();
+  }, []);
 
   return (
     <div className="flex flex-col gap-4">
@@ -46,8 +52,7 @@ const Price = ({ product }: { product: ProductType }) => {
               key={option.title}
               className="min-w-[6rem] p-2 ring-1 ring-red-400 rounded-md"
               style={{
-                background:
-                  selected === index ? "rgb(248 113 113)" : "white",
+                background: selected === index ? "rgb(248 113 113)" : "white",
                 color: selected === index ? "white" : "red",
               }}
               onClick={() => setSelected(index)}
@@ -76,9 +81,18 @@ const Price = ({ product }: { product: ProductType }) => {
           </div>
         </div>
         {/* CART BUTTON */}
-        <button className="uppercase w-56 bg-red-500 text-white p-3 ring-1 ring-red-500" onClick={handleAddCart}>
-          Añadir al carrito
-        </button>
+        {status === "unauthenticated" ? (
+          <button className="uppercase w-56 bg-red-500 text-white p-3 ring-1 ring-red-500">
+            <Link href={"/login"}>Añadir al carrito</Link>
+          </button>
+        ) : (
+          <button
+            className="uppercase w-56 bg-red-500 text-white p-3 ring-1 ring-red-500"
+            onClick={handleAddCart}
+          >
+            Añadir al carrito
+          </button>
+        )}
       </div>
     </div>
   );

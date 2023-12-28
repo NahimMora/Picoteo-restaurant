@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Offer = () => {
@@ -14,7 +15,7 @@ const Offer = () => {
           hamburguesas gourmet, preparadas con ingredientes frescos y sabrosos.
         </p>
         <button className="bg-red-500 text-white rounded-md py-3 px-6">
-          Ordenar ahora!
+          <Link href={"/menu"}>Ordenar ahora!</Link>
         </button>
       </div>
       {/* IMAGE CONTAINER */}

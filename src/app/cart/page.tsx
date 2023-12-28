@@ -2,6 +2,7 @@
 import { useCartStore } from "@/utils/store";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -16,6 +17,9 @@ const CartPage = () => {
   }, []);
 
   const handleCheckout = async () => {
+    if (totalPrice === 0) {
+      return;
+    }
     if (!session) {
       router.push("/");
     } else {
@@ -44,7 +48,9 @@ const CartPage = () => {
       <div className="h-1/2 p-4 flex flex-col justify-center overflow-y-auto lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-20 xl:px-40">
         {/* SINGLE ITEM */}
         {products.length === 0 ? (
-          <div>Compra aquí</div>
+          <span className="cursor-pointer text-xl">
+            <Link href={"/menu"}>🛒 Compra aquí</Link>
+          </span>
         ) : (
           products.map((item) => (
             <div

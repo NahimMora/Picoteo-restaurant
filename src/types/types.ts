@@ -44,5 +44,5 @@ export type CartType = {
 export type ActionType = {
   addToCart:(item:CartItemType)=>void;
   removeToCart:(item:CartItemType)=>void;
-  clearToCart:(item:CartItemType)=>void;
+  clearToCart:()=>void;
 }
