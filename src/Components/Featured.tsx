@@ -1,27 +1,42 @@
+"use client";
+
 import { ProductType } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    throw new Error("¡Falló!");
-  }
-  return res.json();
-};
+const Featured = () => {
+  const [featuredP, setFeaturedP] = useState<ProductType[]>([]);
 
-export const Featured = async () => {
-  const featuredProducts: ProductType[] = await getData();
+  const getData = async () => {
+    try {
+      const res = await fetch("/api/products", {
+        cache: "no-store",
+      });
+      return res.json();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getData();
+        setFeaturedP(data);
+      } catch (error) {}
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="w-[90wh] overflow-hidden text-red-500">
       {/* WRAPPER */}
       <div className="w-max flex">
         {/* SINGLE ITEM */}
-        {featuredProducts.map((item) => (
+        {featuredP.map((item) => (
           <div
             key={item.id}
             className="w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[90vh]"
@@ -49,3 +64,5 @@ export const Featured = async () => {
     </div>
   );
 };
+
+export default Featured;

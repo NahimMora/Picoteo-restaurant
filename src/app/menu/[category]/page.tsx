@@ -1,27 +1,40 @@
+"use client";
 import { ProductType } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-type Porps = {
+type Props = {
   params: { category: string };
 };
 
-const getData = async (category: string) => {
-  const res = await fetch(
-    `http://localhost:3000/api/products?cat=${category}`,
-    {
-      cache: "no-store",
-    }
-  );
-  if (!res.ok) {
-    throw new Error("¡Falló!");
-  }
-  return res.json();
-};
+const CategoryPage = ({ params }: Props) => {
+  const [products, setProducts] = useState<ProductType[]>([]);
 
-const CategoryPage = async ({ params }: Porps) => {
-  const products: ProductType[] = await getData(params.category);
+  const getData = async (category: string) => {
+    try {
+      const res = await fetch(`/api/products?cat=${category}`, {
+        cache: "no-store",
+      });
+      return res.json();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error; // Propagar el error para que sea manejado más arriba
+    }
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getData(params.category);
+        setProducts(data);
+      } catch (error) {
+        // Manejar errores aquí, si es necesario
+      }
+    };
+
+    fetchProducts();
+  }, [params.category]); // Asegúrate de incluir params.category como dependencia para que useEffect se ejecute cuando cambie.
 
   return (
     <section className="flex flex-wrap text-red-500">
