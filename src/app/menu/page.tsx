@@ -1,14 +1,11 @@
-"use client";
 import { MenuType } from "@/types/types";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const MenuPage = async () => {
-  const [menu, setMenu] = useState<MenuType>();
-
   const getData = async () => {
     try {
-      const res = await fetch("/api/categories", {
+      const res = await fetch("https://picoteo.vercel.app/api/categories", {
         cache: "no-store",
       });
       return res.json();
@@ -17,18 +14,7 @@ const MenuPage = async () => {
     }
   };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await getData();
-        setMenu(data);
-      } catch (error) {
-        throw error;
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  const menu = await getData();
 
   return (
     <section className="p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col md:flex-row items-center">
