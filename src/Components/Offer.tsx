@@ -12,10 +12,6 @@ const Offer = () => {
     backgroundImage: `url(${urlBg})`,
   };
 
-  const urlIc = getCldOgImageUrl({
-    src: "Picoteo/zxzo255dvixppled7mie",
-  });
-
   return (
     <div
       className={`bg-black w-[90wh] h-screen flex flex-col md:flex-row md:justify-between md:h-[70vh]`}
@@ -36,7 +32,12 @@ const Offer = () => {
       </div>
       {/* IMAGE CONTAINER */}
       <div className="flex-1 w-full relative md:h-full">
-        <Image src={urlIc} alt="" layout="fill" objectFit="contain" />
+        <Image
+          src="https://res.cloudinary.com/dfwfvvzse/image/upload/v1703364190/Picoteo/zxzo255dvixppled7mie.png"
+          alt=""
+          layout="fill"
+          objectFit="contain"
+        />
       </div>
     </div>
   );
