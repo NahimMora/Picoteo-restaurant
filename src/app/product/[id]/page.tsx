@@ -4,17 +4,17 @@ import { ProductType } from "@/types/types";
 import Image from "next/image";
 import React from "react";
 
-const getData = async (id: string) => {
-  const res = await fetch(`/api/products/${id}`, {
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    throw new Error("¡Falló!");
-  }
-  return res.json();
-};
-
 const SingleProductPage = async ({ params }: { params: { id: string } }) => {
+  const getData = async (id: string) => {
+    const res = await fetch(`/api/products/${id}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      throw new Error("¡Falló!");
+    }
+    return res.json();
+  };
+
   const singleProduct: ProductType = await getData(params.id);
 
   return (
