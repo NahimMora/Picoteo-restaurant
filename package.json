@@ -15,6 +15,7 @@
     "@prisma/client": "^5.7.1",
     "@stripe/react-stripe-js": "^2.4.0",
     "@tanstack/react-query": "^5.14.2",
+    "@vercel/postgres": "^0.5.1",
     "axios": "^1.6.3",
     "cloudinary": "^1.41.1",
     "isomorphic-unfetch": "^4.0.2",
