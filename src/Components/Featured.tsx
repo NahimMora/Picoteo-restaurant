@@ -16,7 +16,7 @@ const Featured = () => {
       return res.json();
     } catch (error) {
       console.error("Error fetching data:", error);
-      throw error;
+      return [];
     }
   };
 
@@ -25,7 +25,9 @@ const Featured = () => {
       try {
         const data = await getData();
         setFeaturedP(data);
-      } catch (error) {}
+      } catch (error) {
+        throw error;
+      }
     };
 
     fetchProducts();
