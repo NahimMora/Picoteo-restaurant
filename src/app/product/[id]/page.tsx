@@ -7,17 +7,19 @@ import React from "react";
 const SingleProductPage = async ({ params }: { params: { id: string } }) => {
   const getData = async (id: string) => {
     try {
-      const res = await fetch(`/api/products/${id}`, {
-        cache: "no-store",
-      });
+      const res = await fetch(
+        `https://picoteo.vercel.app//api/products/${id}`,
+        {
+          cache: "no-store",
+        }
+      );
       return res.json();
     } catch (error) {
-      return [];
+      throw error;
     }
   };
 
   const singleProduct: ProductType = await getData(params.id);
-  console.log(params.id);
 
   return (
     <section className="p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col justify-around text-red-500 md:flex-row md:gap-8 md:items-center relative">
