@@ -7,13 +7,14 @@ const MenuPage = async () => {
   const [menu, setMenu] = useState<MenuType>();
 
   const getData = async () => {
-    const res = await fetch("/api/categories", {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      throw new Error("¡Falló!");
+    try {
+      const res = await fetch("/api/categories", {
+        cache: "no-store",
+      });
+      return res.json();
+    } catch (error) {
+      return [];
     }
-    return res.json();
   };
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const MenuPage = async () => {
         const data = await getData();
         setMenu(data);
       } catch (error) {
-        // Manejar errores aquí, si es necesario
+        throw error;
       }
     };
 

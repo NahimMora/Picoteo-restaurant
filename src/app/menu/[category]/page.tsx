@@ -18,8 +18,7 @@ const CategoryPage = ({ params }: Props) => {
       });
       return res.json();
     } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error; // Propagar el error para que sea manejado más arriba
+      return [];
     }
   };
 
@@ -29,12 +28,12 @@ const CategoryPage = ({ params }: Props) => {
         const data = await getData(params.category);
         setProducts(data);
       } catch (error) {
-        // Manejar errores aquí, si es necesario
+        throw error;
       }
     };
 
     fetchProducts();
-  }, [params.category]); // Asegúrate de incluir params.category como dependencia para que useEffect se ejecute cuando cambie.
+  }, [params.category]);
 
   return (
     <section className="flex flex-wrap text-red-500">
