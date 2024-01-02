@@ -3,12 +3,9 @@ import Link from "next/link";
 import React from "react";
 
 const Offer = () => {
-  const urlbg =
-    "https://res.cloudinary.com/dfwfvvzse/image/upload/v1703364188/Picoteo/gmyp8vk3uoehiwqvfjrb.png";
-
   return (
     <div
-      className={`bg-black w-[90wh] h-screen flex flex-col md:flex-row md:justify-between md:bg-[url(${urlbg})] md:h-[70vh]`}
+      className={`bg-black w-[90wh] h-screen flex flex-col md:flex-row md:justify-between md:bg-[url(https://res.cloudinary.com/dfwfvvzse/image/upload/v1703364188/Picoteo/gmyp8vk3uoehiwqvfjrb.png)] md:h-[70vh]`}
     >
       {/* TEXT CONTAINER */}
       <div className="flex-1 flex flex-col justify-center items-center text-center gap-8 p-6">
