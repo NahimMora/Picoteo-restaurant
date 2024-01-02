@@ -13,7 +13,7 @@ const MenuPage = async () => {
       });
       return res.json();
     } catch (error) {
-      return [];
+      throw error;
     }
   };
 
