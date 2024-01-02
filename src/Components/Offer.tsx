@@ -1,11 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { getCldOgImageUrl } from "next-cloudinary";
 
 const Offer = () => {
+  const urlBg = getCldOgImageUrl({
+    src: "Picoteo/gmyp8vk3uoehiwqvfjrb",
+  });
+
+  const containerStyle = {
+    backgroundImage: `url(${urlBg})`,
+  };
+
+  const urlIc = getCldOgImageUrl({
+    src: "Picoteo/zxzo255dvixppled7mie",
+  });
+
   return (
     <div
-      className={`bg-black w-[90wh] h-screen flex flex-col md:flex-row md:justify-between md:bg-[url(https://res.cloudinary.com/dfwfvvzse/image/upload/v1703364188/Picoteo/gmyp8vk3uoehiwqvfjrb.png)] md:h-[70vh]`}
+      className={`bg-black w-[90wh] h-screen flex flex-col md:flex-row md:justify-between md:h-[70vh]`}
+      style={containerStyle}
     >
       {/* TEXT CONTAINER */}
       <div className="flex-1 flex flex-col justify-center items-center text-center gap-8 p-6">
@@ -22,12 +36,7 @@ const Offer = () => {
       </div>
       {/* IMAGE CONTAINER */}
       <div className="flex-1 w-full relative md:h-full">
-        <Image
-          src="https://res.cloudinary.com/dfwfvvzse/image/upload/v1703364190/Picoteo/zxzo255dvixppled7mie.png"
-          alt=""
-          layout="fill"
-          objectFit="contain"
-        />
+        <Image src={urlIc} alt="" layout="fill" objectFit="contain" />
       </div>
     </div>
   );
