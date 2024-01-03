@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const data = {
@@ -15,9 +16,9 @@ const Slider = () => {
         <h1 className="text-4xl text-center uppercase p-4 md:p-10 md:text-6xl xl:text-6xl">
           {data.title}
         </h1>
-        <button className="bg-red-500 text-white py-4 px-8">
-          Ordenar ahora!
-        </button>
+        <span className="bg-red-500 text-white py-4 px-8">
+          <Link href={"/menu"}>Ordenar ahora!</Link>
+        </span>
       </div>
       {/* CONTENEDOR IMAGEN */}
       <div className="w-full flex-1 relative">
